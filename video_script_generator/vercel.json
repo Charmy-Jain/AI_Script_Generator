@@ -1,16 +1,22 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "manage.py",
-        "use": "@vercel/python"
+  "version": 2,
+  "builds": [
+    {
+      "src": "video_script_generator/wsgi.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "requirements.txt",
+      "use": "@vercel/static-build",
+      "config": {
+        "zeroConfig": true
       }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "manage.py"
-      }
-    ]
-  }
-  
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "video_script_generator/wsgi.py"
+    }
+  ]
+}
