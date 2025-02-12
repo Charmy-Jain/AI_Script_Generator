@@ -17,7 +17,7 @@ generator = pipeline("text-generation", model="gpt2")
 PLATFORM_MAX_TOKENS = {
     "instagram": 200,   # 150-200 words for 90 seconds
     "linkedin": 600,    # 300-500 words for engagement
-    "tiktok": 400,      # 250-350 words for 3 min
+    "tiktok": 350,      # 250-350 words for 3 min
     "youtube": 1000     # Flexible, longer content
 }
 
