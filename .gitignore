@@ -1,11 +1,29 @@
-# Ignore database and compiled files
-db.sqlite3
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
 
-# Ignore environment files
-.env
-.venv/
+# Virtual environment
+env/
 venv/
-node_modules/
+.env
+*.env
+
+# Django specific
+db.sqlite3
+*.log
+
+# VS Code settings
+.vscode/
+
+# Windows specific
+Thumbs.db
+Desktop.ini
+
+# Python cache and compiled files
+*.pyo
+*.pyd
+*.pyc
+
+# Ignore secrets
+config.py
