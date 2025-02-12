@@ -1,0 +1,11 @@
+# Ignore database and compiled files
+db.sqlite3
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore environment files
+.env
+.venv/
+venv/
+node_modules/
