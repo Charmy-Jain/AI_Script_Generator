@@ -49,7 +49,7 @@ def generate_script(request):
             response_data = response.json()
 
             # Debugging: Print API response to console
-            print("API Response:", response_data)
+            print("API Response is:", response_data)
 
             # Extract script from response
             script = response_data
