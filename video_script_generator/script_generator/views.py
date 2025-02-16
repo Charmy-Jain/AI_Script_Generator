@@ -8,10 +8,6 @@ import json
 import pytesseract
 from PIL import Image
 import pdfplumber
-from transformers import pipeline
-
-# Initialize a local text-generation pipeline (using GPT-2 as an example)
-generator = pipeline("text-generation", model="gpt2")
 
 # Define maximum token limits based on video format
 PLATFORM_MAX_TOKENS = {
@@ -33,20 +29,39 @@ def generate_script(request):
         video_format = data.get("video_format", "youtube").lower()
         extracted_text = data.get("extracted_text", "")
 
-        # Set max tokens based on selected video format
-        max_tokens = PLATFORM_MAX_TOKENS.get(video_format, 1000)
+        api_url = "https://intellivibe-ai.onrender.com/intellivibe/chat/ai_access?api_key=3067acd48938da0ba064b6c631cd2ad183b55d95fdff6a6c6eba4642098b87ad"
+        api_key = "3067acd48938da0ba064b6c631cd2ad183b55d95fdff6a6c6eba4642098b87ad"
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}"
+        }
 
-        # Combine prompt and extracted text
-        full_prompt = f"{prompt}\n{extracted_text}".strip()
+
+        payload = {
+            "api_key": api_key,
+            "chat": f"{prompt}\n{extracted_text}".strip(),  # Pass 'chat' instead of 'prompt'
+            "vibe": vibe,
+            "video_format": video_format
+        }
 
         try:
-            # Generate text using the Hugging Face pipeline
-            generated = generator(full_prompt, max_new_tokens=max_tokens, num_return_sequences=1)
-            script = generated[0]['generated_text']
+            response = requests.post(api_url, headers=headers, json=payload)
+            response_data = response.json()
+
+            # Debugging: Print API response to console
+            print("API Response:", response_data)
+
+            # Extract script from response
+            script = response_data
+            if not script:
+                return JsonResponse({"error": "API did not return a script.", "response": response_data}, status=500)
+
             return JsonResponse({"script": script})
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
-    
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({"error": "Request failed", "details": str(e)}, status=500)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid API response format"}, status=500)
+
     return JsonResponse({"error": "Invalid request."}, status=400)
 
 @csrf_exempt
