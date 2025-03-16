@@ -29,8 +29,8 @@ def generate_script(request):
         video_format = data.get("video_format", "youtube").lower()
         extracted_text = data.get("extracted_text", "")
 
-        api_url = "https://intellivibe-ai.onrender.com/intellivibe/chat/ai_access?api_key=3067acd48938da0ba064b6c631cd2ad183b55d95fdff6a6c6eba4642098b87ad"
-        api_key = "3067acd48938da0ba064b6c631cd2ad183b55d95fdff6a6c6eba4642098b87ad"
+        api_url = "https://intellivibe-ai.onrender.com/intellivibe/chat/ai_access?api_key=837dfaaddfd7c15eab1f1ffbe1510d926d2606805c754d5f5cb8569332cd9ada"
+        api_key = "837dfaaddfd7c15eab1f1ffbe1510d926d2606805c754d5f5cb8569332cd9ada"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {api_key}"
